@@ -1,0 +1,49 @@
+= TP3
+
+Vous devez cloner ce repository git au début de l'épreuve,
+et rendre le résultat de votre travail sur ce même repository
+avant la fin de l'épreuve (git commit + git push).
+
+== Le sujet
+
+Vous devez mettre en place un back-end en REST
+pour enregistrer et vérifier des attestations de sortie
+pour le confinement lié au COVID-19.
+
+Votre API devra permettre au _minimum_ de :
+
+- créer un compte personnel en fournissant un username (unique), password, date et lieu de naissance
+- d'enregistrer une demande d'attestation d'un utilisateur authentifié (authentification Basic)
+en fournissant la date/heure du début du déplacement et le motif (String) ;
+si cette demande est valide, elle renvoie un UUID unique (`UUID.randomUUID()`)
+- lors d'un contrôle de l'attestation par la police (avec un rôle "POLICE"),
+récupération et vérification à partir de cet UUID unique de l'attestation et de l'identité en JSON
+
+
+== Question 1
+
+Complétez la table ci-dessous avec l'ensemble des URIs de votre webservice
+en précisant les paramètres entrants et sortant, le contexte d'utilisation...
+
+.URIs de votre service
+[cols="1,1a,4a"]
+|===
+|URI |Méthode |Description 
+
+|/hello/{name}|GET
+|Renvoie le message "Hello {name} !" avec {name} passé en URI, en text/plain, code 200 OK
+
+|/hello|POST
+|Input: JSON avec attribut name, Output: chaine "Hello {name} !", code 200 OK
+|===
+
+
+== Question 2
+
+Codez votre API en utilisant Spring Boot
+
+
+== Question 3
+
+Ecrire un script client (`src/main/resources/demo.http`) pour faire la démonstration du fonctionnement de votre API
+
