@@ -1,4 +1,6 @@
-= TP3
+= Examen de WebServices
+
+Session 1 - 2019-2020
 
 Vous devez cloner ce repository git au début de l'épreuve, et rendre le résultat de votre travail sur ce même repository avant la fin de l'épreuve (git commit + git push).
 
@@ -8,9 +10,12 @@ Vous devez mettre en place un back-end en REST pour enregistrer et vérifier des
 
 Votre API devra permettre au _minimum_ de :
 
-- créer un compte personnel en fournissant un username (unique), password, date et lieu de naissance
-- d'enregistrer une demande d'attestation d'un utilisateur authentifié (authentification Basic) en fournissant la date/heure du début du déplacement et le motif (String) ; si cette demande est valide, elle renvoie un UUID unique (`UUID.randomUUID()`)
-- lors d'un contrôle de l'attestation par la police (avec un rôle "POLICE"), récupération et vérification à partir de cet UUID unique de l'attestation et de l'identité en JSON
+- créer un compte personnel en fournissant un username(unique), password, date et lieu de naissance
+- d'enregistrer une demande d'attestation d'un utilisateur authentifié (authenfication Basic)
+en fournissant la date/heure du début du déplacement et le motif (String);
+si cette demande est valide, elle renvoie un UUID unique ('UUID.randomUUID()')
+- lors d'un contrôle de l'attestation par la police (avec un rôle "POLICE"), récupération et vérification à partir de cet UUID unique de l'attestation et de l'identité en JSON.
+Pour éviter les abus, il y a de plus des comptes de modérateurs qui existent et qui peuvent supprimer une cagnotte si elle ne respecte pas la loi.
 
 == Question 1
 
@@ -21,11 +26,39 @@ Complétez la table ci-dessous avec l'ensemble des URIs de votre webservice en p
 |===
 |URI |Méthode |Description 
 
-|/hello/{name}|GET
-|Renvoie le message "Hello {name} !" avec {name} passé en URI, en text/plain, code 200 OK
+|/utilisateurs |POST
+|Enregistrer un nouvel utilisateur,
 
-|/hello|POST
-|Input: JSON avec attribut name, Output: chaine "Hello {name} !", code 200 OK
+body in : {"username":"fred","password":"fred","dateNaissance":"2020-01-07","lieu":"Orleans"}, code 201 Created, 409 Conflict(si username deja use)
+
+body out:  {"username":"fred","password":"fred","dateNaissance":"2020-01-07","lieu":"Orleans"}
+
+
+
+|/attestations |POST
+| Enregistrer une attestation de sortie,
+authentification Basic username password,
+
+
+authentification Basic login=nomResponsable - password=nomAssociation
+
+body in: {"motif":"exam","debut":"20-20-05-07T18:00:00"},
+body out: {"motif":"exam","debut":"20-20-05-07T18:00:00"},
+Location: /attestations/{UUID}
+
+code 201 Created, 401(erreurs authenfication), 400 Bad request(s'il manque qql chose)
+
+
+|/attestations/{UUID} | GET
+| Vérifie une attestation de sortie,
+authentification Basic username password,
+body out: {"motif":"exam","debut":"20-20-05-07T18:00:00", + Utilisateur !},
+
+Code 200 OK, 40 Not Found
+
+
+
+
 |===
 
 == Question 2

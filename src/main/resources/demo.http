@@ -1,0 +1,23 @@
+POST http://localhost:9003/utilisateurs
+Content-Type: application/json
+
+{"username":"fred","password":"fred","dateNaissance":"2020-01-07","lieu":"Orleans"}
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+});
+%}
+
+
+###
+POST http://localhost:9003/attestations
+Content-Type: application/json
+Authorization: Basic fred fred
+
+{"motif":"exam","debut":"20-20-05-07T18:00:00"}
+
+
+###
+GET http://localhost:9003/attestations/{cle}
+Authorization: Basic police police
